@@ -33,12 +33,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         // 从数据库中取出用户信息
         SysUser user = userService.selectByName(username);
+        Integer status = user.getStatus();
 
         // 判断用户是否存在
         if(user == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
-
 
         // 添加权限
         List<SysUserRole> userRoles = userRoleService.listByUserId(user.getId()); //roleid

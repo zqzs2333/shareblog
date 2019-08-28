@@ -13,7 +13,10 @@ public interface SysUserMapper {
     @Select("SELECT * FROM sys_user WHERE name = #{name}")
     SysUser selectByName(String name);
 
-    void  insert(SysUser sysUser);
+    @Select("select * from sys_user where code = #{code}")
+    SysUser selectBycode(String code);
 
+    void  insert(SysUser sysUser);
+ void update(SysUser sysUser);
 
 }

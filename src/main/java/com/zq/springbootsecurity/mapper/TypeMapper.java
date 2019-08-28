@@ -11,8 +11,9 @@ public interface TypeMapper {
 
     Type queryById(Integer id);
 
-    @Select("select * from type where tpye_name = #{name}")
+    @Select("select * from type where type_name = #{name}")
     Type selectName(String name);
+
 
     @Select("select * from type")
     List<Type> selectAll();

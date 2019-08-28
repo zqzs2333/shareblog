@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService userDetailsService;//自己写的配置类
 
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -50,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 如果有允许匿名的url，填在下面
-                .antMatchers("/getVerifyCode","/tor","/code","/registered","/types").permitAll()
+                .antMatchers("/getVerifyCode","/tor","/checkCode","/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // 设置登陆页

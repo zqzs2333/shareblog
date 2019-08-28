@@ -222,11 +222,12 @@
 
   <!--中间内容-->
   <div>
- <form th:action="@{/type}" method="post" class="ui form">
+ <form th:action="@{/type/}+${type.id}" method="post" class="ui form">
+     <input type="hidden" name="_method" value="PUT">
    <div class="field">
      <div class="ui  labeled input">
          <label class="ui teal basic label">名称</label>
-         <input type="text" name="typeName" placeholder="分类名称"  >
+         <input type="text" name="typeName" placeholder="分类名称" th:value="${type.typeName}"  >
      </div>
 
    </div>

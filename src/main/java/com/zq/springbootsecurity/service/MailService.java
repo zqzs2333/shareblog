@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
 @Service
@@ -23,29 +25,29 @@ public class MailService  {
     @Autowired
     TemplateEngine templateEngine;
 
-    Random ne=new Random();//实例化一个random的对象ne
-    int x=ne.nextInt(9999-1000+1)+1000;//为变量赋随机值1000-9999
-    public String getCode()
-    {
-        return String.valueOf(x);
-    }
 
 
-    public void sendMail(String to) {
+    public void sendMail(String to, String subject, String content) {
 
-        String subject="验证码";
-        String mailVerifyCode =String.valueOf(x);
+
+
         //创建邮件正文
 //        Context context = new Context();
 //        context.setVariable("mailVerifyCode", "您的验证码是："+mailVerifyCode);//页面获取[[${mailVerifyCode}]]
 //        //将模块引擎内容解析成html字符串
 //        String emailContent = templateEngine.process("emailTemplate", context);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(mailVerifyCode);
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom(from);
+//        message.setTo(to);
+//        message.setSubject(subject);
+//        message.setText(content);
         try {
+            MimeMessage message=mailSender.createMimeMessage();
+            MimeMessageHelper helper=new MimeMessageHelper(message,true);
+            helper.setFrom(from);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(content,true);
             mailSender.send(message);
             //logger.info("简单邮件已经发送。");
         } catch (Exception e) {

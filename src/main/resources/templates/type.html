@@ -243,8 +243,9 @@
           <td>是</td>
           <td>2017-10-02 09:45</td>
           <td>
-            <a href="#" class="ui mini teal basic button">编辑</a>
-            <a href="#" class="ui mini red basic button">删除</a>
+            <a th:href="@{/type/}+${type.id}" href="#" class="ui mini teal basic button">编辑</a>
+            <a th:href="@{/type/delete/}+${type.id}" href="#" class="ui mini red basic button">删除</a>
+
           </td>
         </tr>
           <tr>
@@ -255,7 +256,9 @@
             <td>2017-10-02 09:45</td>
             <td>
               <a th:href="@{/type}" href="#" class="ui mini teal basic button">编辑</a>
-              <a href="#" class="ui mini red basic button">删除</a>
+              <a   href="@{/type/}+${type.id}" class="ui mini red basic button deleteBtn">删除</a>
+
+
             </td>
           </tr>
         </tbody>
@@ -266,11 +269,12 @@
                 <a class=" item">上一页</a>
                 <a class=" item">下一页</a>
               </div>
-              <a href="#" class="ui mini right floated teal basic button">新增</a>
+              <a th:href="@{/totypeadd}" href="#" class="ui mini right floated teal basic button">新增</a>
             </th>
           </tr>
         </tfoot>
       </table>
+
     </div>
   </div>
 
@@ -329,7 +333,10 @@
     $('.ui.dropdown').dropdown({
       on : 'hover'
     });
-
+$(".deleteBtn").click(function () {
+  $("#deletetype").attr("action",$(this).attr(del_uri)).submit();
+  return false;
+})
   </script>
 </body>
 </html>
