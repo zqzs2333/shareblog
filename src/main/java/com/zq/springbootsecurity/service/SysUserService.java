@@ -23,16 +23,20 @@ public class SysUserService {
 
     public void insert(SysUser sysUser)
     {
-        sysUserMapper.insert(sysUser);
-        //获取激活码
-        int code = sysUser.getCode();
-        System.out.println("激活码:"+code);
-        //主题
-        String subject = "来自share me的激活邮件";
-        //上面的激活码发送到用户注册邮箱
-        String context = "<a href=\"http://localhost:8080/checkCode?code="+code+"\">激活请点击</a>";
-        //发送激活邮件
-        mailService.sendMail(sysUser.getMail(),subject,context);
+        SysUser user = sysUserMapper.selectByName(sysUser.getName());
+
+        if (user == null) {
+            sysUserMapper.insert(sysUser);
+            //获取激活码
+            int code = sysUser.getCode();
+            System.out.println("激活码:" + code);
+            //主题
+            String subject = "来自share me的激活邮件";
+            //上面的激活码发送到用户注册邮箱
+            String context = "<a href=\"http://localhost:8080/checkCode?code=" + code + "\">激活请点击</a>";
+            //发送激活邮件
+            mailService.sendMail(sysUser.getMail(), subject, context);
+        }
 
 
     }

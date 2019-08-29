@@ -24,6 +24,15 @@ public class SysUser implements Serializable {
 
     private Integer code;
     private String mail;
+   private  Integer money;
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
 
     public Integer getCode() {
         return code;

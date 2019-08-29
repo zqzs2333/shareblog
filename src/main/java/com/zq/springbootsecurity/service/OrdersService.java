@@ -4,8 +4,11 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.zq.springbootsecurity.entity.SysUser;
 import com.zq.springbootsecurity.util.codeutil;
 import com.zq.springbootsecurity.web.AlipayConfig;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +17,16 @@ import java.io.IOException;
 
 @Service
 public class OrdersService {
+//    String name = SecurityContextHolder.getContext().getAuthentication().getName();//登入的用户的名字
+
+//    @Autowired
+//    SysUserService sysUserService;
 
     public void ali(HttpServletResponse response, HttpServletRequest request) throws AlipayApiException, IOException, IOException {
         //设置编码
         response.setContentType("text/html;charset=utf-8");
+
+       String name=(String) request.getSession().getAttribute("loginuser");
 
 
         //获得初始化的AlipayClient
@@ -41,5 +50,11 @@ public class OrdersService {
         String result = alipayClient.pageExecute(aliPayRequest).getBody();
         //输出
         response.getWriter().println(result);
+//        //处理数据库
+//        SysUser sysUser = sysUserService.selectByName(name);
+//        sysUser.setMoney(Integer.valueOf(total_amount));
+//        sysUserService.update(sysUser);
+
+
     }
 }
