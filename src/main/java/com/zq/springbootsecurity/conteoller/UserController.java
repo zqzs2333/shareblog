@@ -9,6 +9,7 @@ import com.zq.springbootsecurity.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,26 @@ public class UserController {
 
 
     @RequestMapping(value = "/register")
-    public String register(SysUser sysUser){
-        codeutil Codeutil = new codeutil();
-        sysUser.setStatus(0);
-        int activeCode = Codeutil.getCode();
-        sysUser.setCode(activeCode);
-        sysUserService.insert(sysUser);
-
+    public String register(SysUser sysUser, Model model){
+        SysUser user = sysUserService.selectByName(sysUser.getName());
+        SysUser user1 = sysUserService.selectByMail(sysUser.getMail());
+        if (user ==null && user1 ==null) {
+            codeutil Codeutil = new codeutil();
+            sysUser.setStatus(0);
+            int activeCode = Codeutil.getCode();
+            sysUser.setCode(activeCode);
+            sysUserService.insert(sysUser);
+        }
+        else if(user != null)
+        {
+            model.addAttribute("msg","用户名已存在");
+            return "registered";
+        }
+        else if (user1 != null)
+        {
+            model.addAttribute("msg","邮箱已存在");
+            return "registered";
+        }
         return "activeSuccess";
     }
 

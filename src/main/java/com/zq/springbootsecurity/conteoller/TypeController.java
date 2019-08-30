@@ -1,5 +1,7 @@
 package com.zq.springbootsecurity.conteoller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zq.springbootsecurity.entity.Type;
 import com.zq.springbootsecurity.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +16,34 @@ import java.util.List;
 public class TypeController {
     @Autowired
     TypeService typeService;
-    @GetMapping("/types")
-    public String TypeList(Model model)
-    {
 
-        List<Type> types = typeService.selectAll();
-        model.addAttribute("types",types);
-        return "type";
+    //转跳到分类界面
+    @RequestMapping("/totpye")
+    public  String tot()
+    {
+        return "redirect:/types";
     }
+
+    @RequestMapping("/types")
+    public String typeListlimit(Model model,@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize)
+    {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Type> list  = typeService.selectAll();
+        PageInfo<Type> pageInfo =new PageInfo<Type>(list);
+        model.addAttribute("pageInfo",pageInfo);
+        return "type";
+
+
+    }
+
+//    @GetMapping("/types")
+//    public String TypeList(Model model)
+//    {
+//
+//        List<Type> types = typeService.selectAll();
+//        model.addAttribute("types",types);
+//        return "type";
+//    }
 
 
     @RequestMapping("/totypeadd")

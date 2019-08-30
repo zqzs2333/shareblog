@@ -1,10 +1,13 @@
 package com.zq.springbootsecurity.service;
 
 
+import com.zq.springbootsecurity.dao.UserRepository;
 import com.zq.springbootsecurity.entity.SysUser;
 import com.zq.springbootsecurity.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class SysUserService {
@@ -13,6 +16,10 @@ public class SysUserService {
     @Autowired
     MailService mailService;
 
+
+    public SysUser selectByMail(String mail){
+        return sysUserMapper.selectByMail(mail);
+    }
     public SysUser selectById(Integer id) {
         return sysUserMapper.selectById(id);
     }
@@ -23,9 +30,7 @@ public class SysUserService {
 
     public void insert(SysUser sysUser)
     {
-        SysUser user = sysUserMapper.selectByName(sysUser.getName());
 
-        if (user == null) {
             sysUserMapper.insert(sysUser);
             //获取激活码
             int code = sysUser.getCode();
@@ -36,7 +41,7 @@ public class SysUserService {
             String context = "<a href=\"http://localhost:8080/checkCode?code=" + code + "\">激活请点击</a>";
             //发送激活邮件
             mailService.sendMail(sysUser.getMail(), subject, context);
-        }
+
 
 
     }
@@ -48,5 +53,14 @@ public class SysUserService {
     {
         sysUserMapper.update(sysUser);
     }
-
+    @Transactional
+    public  void  pay(String from ,String to,Integer paymoney)
+    {
+        sysUserMapper.updatedec(paymoney,from);
+        sysUserMapper.updateadd(paymoney,to);
+    }
+    public  void  addmoney(String name,Integer money)
+    {
+        sysUserMapper.updateadd(money,name);
+    }
 }

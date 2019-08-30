@@ -1,6 +1,7 @@
 package com.zq.springbootsecurity;
 
 import com.zq.springbootsecurity.dao.BlogRepository;
+import com.zq.springbootsecurity.dao.UserRepository;
 import com.zq.springbootsecurity.entity.Blog;
 import com.zq.springbootsecurity.entity.SysUser;
 import com.zq.springbootsecurity.entity.Type;
@@ -31,10 +32,17 @@ public class SpringbootSecurityApplicationTests {
     private JavaMailSender mailSender;
     @Autowired
     BlogRepository blogRepository;
-
+    @Autowired
+    UserRepository userRepository;
     @Test
     public   void  y1() throws Exception
     {
+        SysUser sysUser = new SysUser();
+        sysUser.setId(2);
+        sysUser.setName("haha");
+        sysUser.setMail("798@qq.com");
+        sysUser.setPassword("12312");
+        userRepository.save(sysUser);
 //        Blog blog = new Blog();
 //        blog.setTypeId(2);
 //        blog.setBlogTitle("今天也是美美的一天");
@@ -45,12 +53,16 @@ public class SpringbootSecurityApplicationTests {
 //        blog1.setBlogTitle("美美");
 //        blogRepository.save(blog);
 //        blogRepository.save(blog1);
-        for (Blog blog : blogRepository.findByBlogTitleLike("美美")) {
-            System.out.println(blog);
+//        for (SysUser user : userRepository.findByNameLike("ad")) {
+//            System.out.println(user);
+//        }
+
+//        for (Blog blog : blogRepository.findByBlogTitleLike("美美")) {
+//            System.out.println(blog);
 //        }
 
         }
-    }
+
     @Autowired
     TypeService typeService;
 
@@ -70,6 +82,11 @@ public class SpringbootSecurityApplicationTests {
         mailSender.send(message);
     }
 
+    @Test
+    public  void  pay() throws Exception
+    {
+        sysUserService.pay("admin","zqq",5);
+    }
     @Test
     public void  setMail() throws  Exception
     {

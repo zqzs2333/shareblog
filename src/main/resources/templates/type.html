@@ -63,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-        <tr th:each="type:${types}">
+        <tr th:each="type:${pageInfo.list}">
           <td th:text="${type.id}"></td>
           <td th:text="${type.typeName}"></td>
           <td>认知升级</td>
@@ -93,8 +93,8 @@
           <tr>
             <th colspan="6">
               <div class="ui mini pagination menu">
-                <a class=" item">上一页</a>
-                <a class=" item">下一页</a>
+                <a th:if="${pageInfo.hasPreviousPage}" th:href="@{/types(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" class=" item">上一页</a>
+                <a th:if="${pageInfo.hasNextPage}" th:href="@{/types(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" class=" item">下一页</a>
               </div>
               <a th:href="@{/totypeadd}" href="#" class="ui mini right floated teal basic button">新增</a>
             </th>

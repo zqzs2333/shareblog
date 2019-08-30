@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2019-08-20 09:53:08
  */
-@Document(indexName = "share",type = "user")
+@Document(indexName = "share",type = "users")
 public class SysUser implements Serializable {
     private static final long serialVersionUID = 112537130698984726L;
 

@@ -22,3 +22,8 @@ mybatis:
 mail:
   fromMail:
     addr: 928843846@qq.com
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
