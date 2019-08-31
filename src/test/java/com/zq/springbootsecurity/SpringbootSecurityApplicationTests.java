@@ -90,13 +90,8 @@ public class SpringbootSecurityApplicationTests {
     @Test
     public void  setMail() throws  Exception
     {
-        int code=1111;
-        String subject = "来自share me的激活邮件";
-        //上面的激活码发送到用户注册邮箱
-        String context = "<a href=\"http://localhost:8080/checkCode?code="+code+"\">激活请点击:"+code+"</a>";
-        //发送激活邮件
-       String to="798136670@qq.com";
-       mailService.sendMail(to,subject,context);
+        int i = typeService.counttype("生活");
+        System.out.println(i);
     }
 //    @Test
 //    public void index(){

@@ -24,6 +24,7 @@ public class TypeController {
         return "redirect:/types";
     }
 
+
     @RequestMapping("/types")
     public String typeListlimit(Model model,@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize)
     {

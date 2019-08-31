@@ -18,6 +18,11 @@ public interface TypeMapper {
     @Select("select * from type")
     List<Type> selectAll();
 
+    @Select("SELECT count(type.type_name)\n" +
+            "FROM blog,type\n" +
+            "WHERE blog.type_id=type.id AND type.type_name= #{typename}")
+    int counttype(String typename);
+
 
     int update(Type type);
     int insert(Type type);

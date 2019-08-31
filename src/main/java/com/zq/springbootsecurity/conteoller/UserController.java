@@ -27,7 +27,8 @@ public class UserController {
 
 
     @RequestMapping(value = "/register")
-    public String register(SysUser sysUser, Model model){
+    public String register(SysUser sysUser, Model model)
+    {
         SysUser user = sysUserService.selectByName(sysUser.getName());
         SysUser user1 = sysUserService.selectByMail(sysUser.getMail());
         if (user ==null && user1 ==null) {

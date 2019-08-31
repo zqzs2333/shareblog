@@ -38,4 +38,9 @@ public class TypeService {
     public void  deleteById(Integer id){
         typeMapper.deleteById(id);
     }
+
+    public int counttype(String typename)
+    {
+      return   typeMapper.counttype(typename);
+    }
 }
